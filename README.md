@@ -1,1 +1,1 @@
-# Day_40_EmployeeWagesJS
+EmployeeWages JS
