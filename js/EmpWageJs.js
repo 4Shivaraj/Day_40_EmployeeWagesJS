@@ -1,9 +1,10 @@
 console.log("Welcome to the Employee Wage Problem");
 
-///////////////////////////////UC-8///////////////////////////////
+///////////////////////////////UC-9///////////////////////////////
 /*
-Store the Day and the Daily Wage along with the Total Wage 
-- Use Map to store Day wise Wage - Compute the total wage using the Map
+Use the Daily Wage Map and Daily Hour Map perform following operations using Arrow Functions
+a. Calc total Wage and total hours worked
+b. Show the full workings days, part working days and no working days
 */
 
 const IS_FULL_TIME=1;
@@ -17,6 +18,10 @@ let day=1;
 let workingHrs=0;
 let empWageArray = new Array();
 let empWageMapObject = new Map();  //UC8
+let empDayAndHoursMapObject = new Map(); //UC9A
+let nonWorkingDaysArray = new Array(); //UC9B
+let partWorkingDaysArray = new Array(); //UC9B
+let fullWorkingDaysArray = new Array(); //UC9B
 
 
 function getWorkHours()
@@ -47,6 +52,7 @@ while(day<=MAX_WORKING_DAYS && workingHrs<=MAX_WORKING_HOURS)
     workingHrs+=empHrs;
     empWageArray.push(empWage)
     empWageMapObject.set(day,empWage);  //UC8
+    empDayAndHoursMapObject.set(day,empHrs); //UC9
 }
 console.log("UC4-Total Employee Monthly Wage:"+totalEmpWage);
 console.log("UC5-Total Days:"+(day-1) + " and Total Working Hours:"+workingHrs);
@@ -158,7 +164,29 @@ console.log("UC-8 Storing Day and Dailywage in Map Object")
 //To Use that function we have to Convert map into array,
 //since map is not supoorted with array helper functions
 //To Fetch only values we used empwageobject.values
-console.log("In Map Object\nDay: "+(day-1)+" TotalWage:"+ Array.from(empWageMapObject.values()).reduce(GetTotalWageUsingReduce))
+console.log("In Map Object\nDay: "+(day-1)+" TotalWage:"+ Array.from(empWageMapObject.values()).reduce(GetTotalWageUsingReduce,0))
+
+///////////////////////////////UC-9A Using Arrow Function Calc total Wage and total hours worked ///////////////////////////////
+console.log("UC9-In Map Object Method Using Arrow Function") 
+console.log("UC9A-Total Wage Using wage map object: \n"+(day-1)+" TotalWage:"+ (Array.from(empWageMapObject.values())).filter(wage=>wage>0).reduce(GetTotalWageUsingReduce,0))
+console.log("UC9A-Total Hours Using Hours map object: \n "+ (Array.from(empDayAndHoursMapObject .values())).reduce(GetTotalWageUsingReduce,0));
+
+///////////////////////////////UC-9BShow the full workings days, part working days and no working days///////////////////////////////
+console.log("UC9B-Show the full workings days, part working days and no working days") 
+empDayAndHoursMapObject.forEach(    
+    (value,key,map) => 
+    {
+        if( value == 8 ) 
+        fullWorkingDaysArray.push(key);
+        else if( value == 4 ) 
+        partWorkingDaysArray.push(key);
+        else 
+        nonWorkingDaysArray.push(key);
+})
+console.log("UC9B-FullTime work days: "+fullWorkingDaysArray);
+console.log("UC9B-PartTime work days: "+partWorkingDaysArray);
+console.log("UC9B-NonTime work days: "+nonWorkingDaysArray);
+
 
 
 /*
@@ -242,5 +270,12 @@ UC7G-Counting Number Of Working Days
 UC-8 Storing Day and Dailywage in Map Object
 In Map Object
 Day: 20 TotalWage:1040
+-----------------------------------------------------------------------------------------------
+UC9A-Total Hours Using Hours map object:
+ 80
+UC9B-Show the full workings days, part working days and no working days
+UC9B-FullTime work days: 4,6,8,15,16,17,19
+UC9B-PartTime work days: 2,5,7,12,18,21
+UC9B-NonTime work days: 3,9,10,11,13,14,20
 -----------------------------------------------------------------------------------------------
 */
