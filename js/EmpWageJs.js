@@ -1,10 +1,8 @@
 console.log("Welcome to the Employee Wage Problem");
 
-///////////////////////////////UC-9///////////////////////////////
+///////////////////////////////UC-10///////////////////////////////
 /*
-Use the Daily Wage Map and Daily Hour Map perform following operations using Arrow Functions
-a. Calc total Wage and total hours worked
-b. Show the full workings days, part working days and no working days
+Ability to store the Day, Hours Worked and Wage Earned in a single object.
 */
 
 const IS_FULL_TIME=1;
@@ -22,6 +20,7 @@ let empDayAndHoursMapObject = new Map(); //UC9A
 let nonWorkingDaysArray = new Array(); //UC9B
 let partWorkingDaysArray = new Array(); //UC9B
 let fullWorkingDaysArray = new Array(); //UC9B
+let empWageHoursAndDay = new Array(); //UC10
 
 
 function getWorkHours()
@@ -47,12 +46,24 @@ while(day<=MAX_WORKING_DAYS && workingHrs<=MAX_WORKING_HOURS)
     empCheck = Math.floor(Math.random()*10)%3;
     empWage=EMP_RATE_PER_HR*getWorkHours();
     console.log("UC2-Employee Wage for day-"+day+" = "+empWage);
-    totalEmpWage+=empWage;
-    day++
-    workingHrs+=empHrs;
     empWageArray.push(empWage)
     empWageMapObject.set(day,empWage);  //UC8
     empDayAndHoursMapObject.set(day,empHrs); //UC9
+    empWageHoursAndDay.push(
+        {
+            dayNumOb : day,
+            empHoursOb : getWorkHours(),
+            wageOb : empWage,
+            toString()
+            {
+                return "\nEmployee Wage Details Of Day:"+ this.dayNumOb + "Hours:"+this.empHoursOb + "Wage:"+ this.wageOb; 
+            }
+            
+        }
+    );
+    totalEmpWage+=empWage;
+    day++
+    workingHrs+=empHrs;
 }
 console.log("UC4-Total Employee Monthly Wage:"+totalEmpWage);
 console.log("UC5-Total Days:"+(day-1) + " and Total Working Hours:"+workingHrs);
@@ -188,7 +199,8 @@ console.log("UC9B-FullTime work days: "+fullWorkingDaysArray);
 console.log("UC9B-PartTime work days: "+partWorkingDaysArray);
 console.log("UC9B-NonTime work days: "+nonWorkingDaysArray);
 
-
+///////////////////////////////UC-10 Ability to store the Day, Hours Worked and Wage Earned in a single object.///////////////////////////////
+console.log("UC10-Js Object Used to store the Day, Hours Worked and Wage Earned\n"+empWageHoursAndDay);
 
 /*
 Welcome to the Employee Wage Problem
@@ -284,4 +296,26 @@ UC9B-FullTime work days: 3,5,12
 UC9B-PartTime work days: 7,18,19,21
 UC9B-NonTime work days: 2,4,6,8,9,10,11,13,14,15,16,17,20
 ------------------------------------------------------------------------------------------  -----
+UC10-Js Object Used to store the Day, Hours Worked and Wage Earned
+
+Employee Wage Details Of Day:1Hours:8Wage:160,
+Employee Wage Details Of Day:2Hours:4Wage:80,
+Employee Wage Details Of Day:3Hours:4Wage:80,
+Employee Wage Details Of Day:4Hours:4Wage:80,
+Employee Wage Details Of Day:5Hours:8Wage:160,
+Employee Wage Details Of Day:6Hours:8Wage:160,
+Employee Wage Details Of Day:7Hours:0Wage:0,
+Employee Wage Details Of Day:8Hours:0Wage:0,
+Employee Wage Details Of Day:9Hours:8Wage:160,
+Employee Wage Details Of Day:10Hours:4Wage:80,
+Employee Wage Details Of Day:11Hours:8Wage:160,
+Employee Wage Details Of Day:12Hours:0Wage:0,
+Employee Wage Details Of Day:13Hours:8Wage:160,
+Employee Wage Details Of Day:14Hours:4Wage:80,
+Employee Wage Details Of Day:15Hours:0Wage:0,
+Employee Wage Details Of Day:16Hours:4Wage:80,
+Employee Wage Details Of Day:17Hours:0Wage:0,
+Employee Wage Details Of Day:18Hours:0Wage:0,
+Employee Wage Details Of Day:19Hours:0Wage:0,
+Employee Wage Details Of Day:20Hours:4Wage:80
 */
