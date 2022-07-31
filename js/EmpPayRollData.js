@@ -20,7 +20,14 @@ class EmployeePayroll
     }
     //Getter and setter methods for properties of class
     get name() { return this._name };
-    set name(name) { this._name = name };
+    set name(name) {
+        let nameRegex = RegExp('^[A-Z]{1}[a-z]{2,}$');
+        if (nameRegex.test(name))
+        {
+            this._name = name;
+        }
+        else throw 'Name is Incorrect!'; 
+        }
 
     //Method to return string of values
     toString() {
@@ -33,8 +40,13 @@ class EmployeePayroll
 let employPayroll = new EmployeePayroll(1, "Shivaraj", 78000);
 console.log(employPayroll.toString());
 //Using Set to update values of the properties of class
-employPayroll.name = "Cheluvesha";
-employPayroll.salary = 75000;
+try{
+    employPayroll.name = "Ch";
+    employPayroll.salary = 75000;
+}
+catch(ex){
+    console.error(ex);
+}
 console.log(employPayroll.toString());
 let newEmployeePayroll = new EmployeePayroll(2, "Terrisa", 30000, "F", new Date());
 console.log(newEmployeePayroll.toString());
@@ -42,6 +54,7 @@ console.log(newEmployeePayroll.toString());
 /*
 UC 13: 
 Id: 1   Name: Shivaraj  Salary: 78000,  Gender: undefined,      Start Date: undefined
-Id: 1   Name: Cheluvesha        Salary: 75000,  Gender: undefined,      Start Date: undefined
+Name is Incorrect!
+Id: 1   Name: Shivaraj  Salary: 78000,  Gender: undefined,      Start Date: undefined
 Id: 2   Name: Terrisa   Salary: 30000,  Gender: F,      Start Date: August 1, 2022
 */
