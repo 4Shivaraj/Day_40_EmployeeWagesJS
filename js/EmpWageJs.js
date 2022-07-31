@@ -1,8 +1,12 @@
 console.log("Welcome to the Employee Wage Problem");
 
-///////////////////////////////UC-10///////////////////////////////
+///////////////////////////////UC-11///////////////////////////////
 /*
-Ability to store the Day, Hours Worked and Wage Earned in a single object.
+Perform following Object operations using Arrow Functions
+a. Calc total Wage and total hours worked
+b. Show the full workings days using foreach
+c. Show Part working days using Map by reducing to String Array
+d. No working days only using Map function
 */
 
 const IS_FULL_TIME=1;
@@ -20,8 +24,7 @@ let empDayAndHoursMapObject = new Map(); //UC9A
 let nonWorkingDaysArray = new Array(); //UC9B
 let partWorkingDaysArray = new Array(); //UC9B
 let fullWorkingDaysArray = new Array(); //UC9B
-let empWageHoursAndDay = new Array(); //UC10
-
+let empWageHoursAndDayArray = new Array(); //UC10
 
 function getWorkHours()
 {
@@ -49,7 +52,7 @@ while(day<=MAX_WORKING_DAYS && workingHrs<=MAX_WORKING_HOURS)
     empWageArray.push(empWage)
     empWageMapObject.set(day,empWage);  //UC8
     empDayAndHoursMapObject.set(day,empHrs); //UC9
-    empWageHoursAndDay.push(
+    empWageHoursAndDayArray.push(
         {
             dayNumOb : day,
             empHoursOb : getWorkHours(),
@@ -200,9 +203,44 @@ console.log("UC9B-PartTime work days: "+partWorkingDaysArray);
 console.log("UC9B-NonTime work days: "+nonWorkingDaysArray);
 
 ///////////////////////////////UC-10 Ability to store the Day, Hours Worked and Wage Earned in a single object.///////////////////////////////
-console.log("UC10-Js Object Used to store the Day, Hours Worked and Wage Earned\n"+empWageHoursAndDay);
+console.log("UC10-Js Object Used to store the Day, Hours Worked and Wage Earned\n"+empWageHoursAndDayArray);
 
-/*
+///////////////////////////////UC-11a Calc total Wage and total hours worked///////////////////////////////
+let getTotalWageUsingArrow=(total,dailywage)=>
+{
+    return total += dailywage.wageOb; 
+    
+}
+let totalWageUsingArrow = empWageHoursAndDayArray.filter(daily=>daily.wageOb>0).reduce(getTotalWageUsingArrow,0);
+console.log("UC11A- Total Wage Using Object And Seperate Arrow Function:",totalWageUsingArrow)
+
+///////////////////////////////UC-11A Calc total Hours and total hours worked///////////////////////////////
+let getTotalHourUsingArrow=(total,dailywage)=>
+{
+    return total += dailywage.empHoursOb; 
+}
+let totalHoursUsingArrow = empWageHoursAndDayArray.filter(daily=>daily.empHoursOb>0).reduce(getTotalHourUsingArrow,0);
+console.log("UC11A- Total Hours Using Object And Seperate Arrow Function:",totalHoursUsingArrow)
+
+///////////////////////////////UC-11B. Show the full workings days using foreach///////////////////////////////
+console.log("UC11B- Show the full workings days using foreach using object and arrow function");
+empWageHoursAndDayArray.filter(dailyHoursAndWage=>dailyHoursAndWage.empHoursOb==8).forEach(
+    dailyHoursAndWage=>console.log("UC11B- Full workings days are:"+dailyHoursAndWage.dayNumOb)
+)
+
+///////////////////////////////UC-11C Show Part working days using Map by reducing to String Array///////////////////////////////
+console.log("UC11C- Show the PartTime workings days using Map using object and arrow function");
+let partTimeDaysUsingObject=empWageHoursAndDayArray.filter(dailyHoursAndWage=>dailyHoursAndWage.empHoursOb==4).map(
+    dailyHoursAndWage=>dailyHoursAndWage.toString()); 
+    console.log("UC11C- Total PartTime Using Object And Arrow Function:"+partTimeDaysUsingObject)
+
+    ///////////////////////////////UC-11C Non working days using Map FUnction///////////////////////////////
+console.log("UC11D- Show the Non workings days using Map function");
+let nonWorkingDaysUsingObject=empWageHoursAndDayArray.filter(dailyHoursAndWage=>dailyHoursAndWage.empHoursOb==0).map(
+    dailyHoursAndWage=>dailyHoursAndWage); 
+    console.log("UC11D- Non workings days using Map function:"+nonWorkingDaysUsingObject)
+
+/* 
 Welcome to the Employee Wage Problem
 UC1-Employee is Absent
 -----------------------------------------------------------------------------------------------
@@ -297,7 +335,6 @@ UC9B-PartTime work days: 7,18,19,21
 UC9B-NonTime work days: 2,4,6,8,9,10,11,13,14,15,16,17,20
 ------------------------------------------------------------------------------------------  -----
 UC10-Js Object Used to store the Day, Hours Worked and Wage Earned
-
 Employee Wage Details Of Day:1Hours:8Wage:160,
 Employee Wage Details Of Day:2Hours:4Wage:80,
 Employee Wage Details Of Day:3Hours:4Wage:80,
@@ -318,4 +355,37 @@ Employee Wage Details Of Day:17Hours:0Wage:0,
 Employee Wage Details Of Day:18Hours:0Wage:0,
 Employee Wage Details Of Day:19Hours:0Wage:0,
 Employee Wage Details Of Day:20Hours:4Wage:80
+------------------------------------------------------------------------------------------  -----
+UC11A- Total Wage Using Object And Seperate Arrow Function: 1360
+UC11A- Total Hours Using Object And Seperate Arrow Function: 68
+------------------------------------------------------------------------------------------  -----
+UC11B- Show the full workings days using foreach using object and arrow function
+UC11B- Full workings days are:7
+UC11B- Full workings days are:12
+UC11B- Full workings days are:14
+UC11B- Full workings days are:19
+UC11B- Full workings days are:20
+------------------------------------------------------------------------------------------  -----
+UC11C- Show the PartTime workings days using Map using object and arrow function
+UC11C- Total PartTime Using Object And Arrow Function:
+Employee Wage Details Of Day:4Hours:4Wage:80,
+Employee Wage Details Of Day:5Hours:4Wage:80,
+Employee Wage Details Of Day:6Hours:4Wage:80,
+Employee Wage Details Of Day:13Hours:4Wage:80,
+Employee Wage Details Of Day:15Hours:4Wage:80,
+Employee Wage Details Of Day:17Hours:4Wage:80,
+Employee Wage Details Of Day:18Hours:4Wage:80
+------------------------------------------------------------------------------------------  -----
+UC11D- Show the Non workings days using Map function
+UC11D- Non workings days using Map function:
+Employee Wage Details Of Day:1Hours:0Wage:0,
+Employee Wage Details Of Day:2Hours:0Wage:0,
+Employee Wage Details Of Day:3Hours:0Wage:0,
+Employee Wage Details Of Day:8Hours:0Wage:0,
+Employee Wage Details Of Day:9Hours:0Wage:0,
+Employee Wage Details Of Day:10Hours:0Wage:0,
+Employee Wage Details Of Day:11Hours:0Wage:0,
+Employee Wage Details Of Day:16Hours:0Wage:0
+------------------------------------------------------------------------------------------  -----
+
 */
