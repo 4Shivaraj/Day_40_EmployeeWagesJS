@@ -173,6 +173,7 @@ console.log("UC9A-Total Hours Using Hours map object: \n "+ (Array.from(empDayAn
 
 ///////////////////////////////UC-9BShow the full workings days, part working days and no working days///////////////////////////////
 console.log("UC9B-Show the full workings days, part working days and no working days") 
+console.log("HrsMap:\n"+(Array.from(empDayAndHoursMapObject.values())).join(" "))
 empDayAndHoursMapObject.forEach(    
     (value,key,map) => 
     {
@@ -271,11 +272,16 @@ UC-8 Storing Day and Dailywage in Map Object
 In Map Object
 Day: 20 TotalWage:1040
 -----------------------------------------------------------------------------------------------
+UC9-In Map Object Method Using Arrow Function
+UC9A-Total Wage Using wage map object:
+20 TotalWage:800
 UC9A-Total Hours Using Hours map object:
- 80
+ 40
 UC9B-Show the full workings days, part working days and no working days
-UC9B-FullTime work days: 4,6,8,15,16,17,19
-UC9B-PartTime work days: 2,5,7,12,18,21
-UC9B-NonTime work days: 3,9,10,11,13,14,20
------------------------------------------------------------------------------------------------
+HrsMap:
+0 8 0 8 0 4 0 0 0 0 8 0 0 0 0 0 4 4 0 4
+UC9B-FullTime work days: 3,5,12
+UC9B-PartTime work days: 7,18,19,21
+UC9B-NonTime work days: 2,4,6,8,9,10,11,13,14,15,16,17,20
+------------------------------------------------------------------------------------------  -----
 */
