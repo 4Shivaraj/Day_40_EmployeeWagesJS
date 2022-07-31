@@ -1,5 +1,5 @@
 /*
-UC-11.1 Ability to create Employee Payroll Data with id, name and salary
+UC12. Ability to extend Employee Payroll Data to store gender and start date
 */
 
 class EmployeePayroll
@@ -7,12 +7,16 @@ class EmployeePayroll
     //property
     id;
     salary;
+    gender;
+    startDate;
 
     //Defining parameterizd constructor of class using constructor keyword
-    constructor(id, name, salary) {
-    this.id = id;
-    this.name = name;
-    this.salary = salary;
+    constructor(...params) {
+    this.id = params[0];
+    this.name = params[1];
+    this.salary = params[2];
+    this.gender = params[3];
+    this.startDate = params[4];
     }
     //Getter and setter methods for properties of class
     get name() { return this._name };
@@ -20,7 +24,9 @@ class EmployeePayroll
 
     //Method to return string of values
     toString() {
-        return `Id: ${this.id} \tName: ${this.name} \tSalary: ${this.salary}`
+        const options = { year: 'numeric', month: 'long', day: 'numeric'};
+        const empDate = this.startDate == undefined ? "undefined" : this.startDate.toLocaleDateString("en-US", options);
+        return `Id: ${this.id} \tName: ${this.name} \tSalary: ${this.salary},\tGender: ${this.gender}, \tStart Date: ${empDate}`;
     }
 }
 //Created obj for class using parameterized conbstructor
@@ -30,9 +36,12 @@ console.log(employPayroll.toString());
 employPayroll.name = "Cheluvesha";
 employPayroll.salary = 75000;
 console.log(employPayroll.toString());
+let newEmployeePayroll = new EmployeePayroll(2, "Terrisa", 30000, "F", new Date());
+console.log(newEmployeePayroll.toString());
 
 /*
-UC11.1
-Id: 1   Name: Shivaraj  Salary: 78000
-Id: 1   Name: Cheluvesha        Salary: 75000
+UC 12: 
+Id: 1   Name: Shivaraj  Salary: 78000,  Gender: undefined,      Start Date: undefined
+Id: 1   Name: Cheluvesha        Salary: 75000,  Gender: undefined,      Start Date: undefined
+Id: 2   Name: Terrisa   Salary: 30000,  Gender: F,      Start Date: August 1, 2022
 */
