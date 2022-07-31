@@ -1,15 +1,11 @@
 /*
-UC13.Ability to check the name starts with capital and has at least 3 characters - Use Regex Pattern - Use Try Catch in case of Error
+UC.14 Ability to check the employee id and salary are non zero positive number, the gender is M or F and date is not a future date
+- Use Regex Pattern
+- Use Try Catch in case of Error
 */
 
 class EmployeePayroll
     {
-    //property
-    id;
-    salary;
-    gender;
-    startDate;
-
     //Defining parameterizd constructor of class using constructor keyword
     constructor(...params) {
     this.id = params[0];
@@ -28,6 +24,46 @@ class EmployeePayroll
         }
         else throw 'Name is Incorrect!'; 
         }
+    //validating id
+    get id() { return this._id };
+    set id(id)
+        {
+            let idPattern = new RegExp('^[1-9]*$');
+            if(idPattern.test(id))
+                this._id = id;
+            else
+                throw "The Given Id Is Invalid";
+        }
+    //validating salary
+    get salary() { return this._salary };
+    set salary(salary) 
+        {
+            let salaryPattern = new RegExp('^[1-9][0-9]*$');
+            if(salaryPattern.test(salary))
+                this._salary = salary;
+            else
+                throw "The Given Salary Is Invalid";
+        }
+    //validating gender
+    get gender() { return this._gender };
+    set gender(gender)
+        {
+            let genderPattern = new RegExp('M|F');
+            if(genderPattern.test(gender))
+                this._gender=gender;
+            else
+                throw "The Given Gender Is Not Correct";
+        }
+    //Validate start date is not future date
+    get startDate(){ return this._startDate };
+    set startDate(startDate)
+        {
+            let todayDate = new Date();
+            if(startDate <= todayDate)
+                this._startDate = startDate;
+            else
+                throw "The Given Date Is Greater Than Current Date";
+        }
 
     //Method to return string of values
     toString() {
@@ -37,24 +73,25 @@ class EmployeePayroll
     }
 }
 //Created obj for class using parameterized conbstructor
-let employPayroll = new EmployeePayroll(1, "Shivaraj", 78000);
-console.log(employPayroll.toString());
-//Using Set to update values of the properties of class
 try{
-    employPayroll.name = "Ch";
-    employPayroll.salary = 75000;
+    let employPayroll = new EmployeePayroll(1, "Shivaraj", 78000,"M", new Date());
+    console.log(employPayroll.toString());
+    //Using Set to update values of the properties of class
+
+        employPayroll.name = "Cheluvesh";
+        employPayroll.salary = 75000;
+
+    console.log(employPayroll.toString());
+    let newEmployeePayroll = new EmployeePayroll(2, "Terrisa", 30000, "F", new Date());
+    console.log(newEmployeePayroll.toString());
 }
 catch(ex){
     console.error(ex);
 }
-console.log(employPayroll.toString());
-let newEmployeePayroll = new EmployeePayroll(2, "Terrisa", 30000, "F", new Date());
-console.log(newEmployeePayroll.toString());
 
 /*
-UC 13: 
-Id: 1   Name: Shivaraj  Salary: 78000,  Gender: undefined,      Start Date: undefined
-Name is Incorrect!
-Id: 1   Name: Shivaraj  Salary: 78000,  Gender: undefined,      Start Date: undefined
+UC 14: 
+Id: 1   Name: Shivaraj  Salary: 78000,  Gender: M,      Start Date: August 1, 2022
+Id: 1   Name: Cheluvesh         Salary: 75000,  Gender: M,      Start Date: August 1, 2022
 Id: 2   Name: Terrisa   Salary: 30000,  Gender: F,      Start Date: August 1, 2022
 */
